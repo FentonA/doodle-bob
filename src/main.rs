@@ -4,7 +4,6 @@ use bevy::prelude::*;
 fn main() {
     App::new()
     .add_plugins(DefaultPlugins)
-<<<<<<< HEAD
     .add_startup_system(spawn_cam)
     .add_startup_system(spawn_player)
     .add_system(animate_sprite)
@@ -12,10 +11,6 @@ fn main() {
     .add_system(change_player_animation)
     .add_system(player_jump)
     .add_system(player_fall)
-=======
-    .add_plugin(EditorPlugin)
-    .add_startup 
->>>>>>> e3b51795cea7fcb42ef428b442210fe096efd8b2
     .run()
 }
 
@@ -24,7 +19,6 @@ fn spawn_cam(
 ) { 
     commands.spawn(Camera2dBundle::default());
 }
-
 
 
 
