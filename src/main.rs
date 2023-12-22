@@ -1,13 +1,13 @@
 use bevy::prelude::*;
-
-
+use bevy_editor_pls::prelude::*;
+use bevy::*
 
 fn main() {
     App::new()
     .add_plugins(DefaultPlugins)
-    .add_plugin(EditorPlugin)
-    .add_startup 
-    .run()
+    .add_plugins(EditorPlugin::default())
+    .add_startup_system()//TODO: I think the startup is supposed to be like this, but not sure if this alligneds with the tutorial you were following: 
+    .run();
 }
 
 fn spawn_cam(
