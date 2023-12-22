@@ -5,7 +5,8 @@ use bevy::prelude::*;
 fn main() {
     App::new()
     .add_plugins(DefaultPlugins)
-    .add_plugins(bevy_editor_pls::prelude::EditorPlugin)
+    .add_plugin(EditorPlugin)
+    .add_startup 
     .run()
 }
 
