@@ -82,7 +82,7 @@ fn animate_sprite(
 
 const JUMP_SPEED: f32 = 150.0; // Adjust this value for jump height
 const FALL_SPEED: f32 = 300.0; // Adjust this value for falling speed
-const MOVE_SPEED: f32 = 100.0; // Adjust this value for movement speed
+const MOVE_SPEED: f32 = 120.0; // Adjust this value for movement speed
 
 // Modified move_player function to include jump initiation
 fn move_player(
