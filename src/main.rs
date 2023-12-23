@@ -14,10 +14,15 @@ fn main() {
     .run()
 }
 
+
+
+    
 fn spawn_cam(
     mut commands: Commands,
+
 ) { 
     commands.spawn(Camera2dBundle::default());
+
 }
 
 
@@ -75,8 +80,8 @@ fn animate_sprite(
 
 
 
-const JUMP_FORCE: f32 = 400.0; // Adjust this value for jump height
-const FALL_SPEED: f32 = 700.0; // Adjust this value for falling speed
+const JUMP_SPEED: f32 = 150.0; // Adjust this value for jump height
+const FALL_SPEED: f32 = 300.0; // Adjust this value for falling speed
 const MOVE_SPEED: f32 = 100.0; // Adjust this value for movement speed
 
 // Modified move_player function to include jump initiation
@@ -102,7 +107,7 @@ fn move_player(
         if (input.just_pressed(KeyCode::Space) || input.just_pressed(KeyCode::W) || input.just_pressed(KeyCode::Up))
             && !player_has_jump
         {
-            commands.entity(player_entity).insert(Jump(JUMP_FORCE));
+            commands.entity(player_entity).insert(Jump(JUMP_SPEED));
         }
     }
 }
@@ -139,11 +144,19 @@ fn change_player_animation(
         8,1,None,None
         ));
     }
-    if  input.any_just_released([KeyCode::A, KeyCode::Left, KeyCode::D, KeyCode::Right])
+    if  input.any_just_released([KeyCode::A, KeyCode::Left, KeyCode::D, KeyCode::Right, KeyCode::Up])
     && !input.any_pressed([KeyCode::A, KeyCode::Left, KeyCode::D, KeyCode::Right]) {
         animation.len = 8; 
         *atlas = texture_atlas.add(TextureAtlas::from_grid(
             asset_server.load("dogpack_assets/dogpack_spritesheets/dog_idle_strip8.png"),
+        Vec2::splat(60.),
+        8,1,None,None
+        ));
+    }
+    else if input.any_just_pressed([KeyCode::Up]) {
+        animation.len = 8; 
+        *atlas = texture_atlas.add(TextureAtlas::from_grid(
+        asset_server.load("dogpack_assets/dogpack_spritesheets/dog_jump_strip8.png"),
         Vec2::splat(60.),
         8,1,None,None
         ));
@@ -175,6 +188,7 @@ fn player_fall (
     let Ok(mut player) = player.get_single_mut() else {return;};
     if player.translation.y > 0.0 {
         player.translation.y -= time.delta_seconds() * FALL_SPEED; 
-        if player.translation.y < 0.0 {player.translation.y = 0.0}
+        if player.translation.y < 0.0 {player.translation.y = 0.0} {
+        }
     }
-    }
+}
