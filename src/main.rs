@@ -6,6 +6,7 @@ fn main() {
     .add_plugins(DefaultPlugins)
     .add_startup_system(spawn_cam)
     .add_startup_system(spawn_player)
+    .add_startup_system(spawn_background)
     .add_system(animate_sprite)
     .add_system(move_player)
     .add_system(change_player_animation)
@@ -80,9 +81,9 @@ fn animate_sprite(
 
 
 
-const JUMP_SPEED: f32 = 150.0; // Adjust this value for jump height
+const JUMP_SPEED: f32 = 180.0; // Adjust this value for jump height
 const FALL_SPEED: f32 = 300.0; // Adjust this value for falling speed
-const MOVE_SPEED: f32 = 120.0; // Adjust this value for movement speed
+const MOVE_SPEED: f32 = 220.0; // Adjust this value for movement speed
 
 // Modified move_player function to include jump initiation
 fn move_player(
@@ -173,6 +174,16 @@ fn change_player_animation(
     }
 }
 
+fn spawn_background(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+) {
+    let texture_handle = asset_server.load("Fantasy Swamp Forest/Free/BG_1/BG_1.png");
+    commands.spawn_bundle(SpriteBundle {
+        texture: texture_handle,
+        ..Default::default()
+    });
+}
 
 
 
