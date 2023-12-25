@@ -5,8 +5,8 @@ fn main() {
     App::new()
     .add_plugins(DefaultPlugins)
     .add_startup_system(spawn_cam)
-    .add_startup_system(spawn_player)
     .add_startup_system(spawn_background)
+    .add_startup_system(spawn_player)
     .add_system(animate_sprite)
     .add_system(move_player)
     .add_system(change_player_animation)
@@ -26,6 +26,17 @@ fn spawn_cam(
 
 }
 
+fn spawn_background(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+) {
+    let texture_handle = asset_server.load("Fantasy Swamp Forest/Free/BG_1/BG_1.png");
+    commands.spawn(SpriteBundle {
+        texture: texture_handle,
+        transform: Transform::from_translation(Vec3::new(0.0, 0.0, -1.0)),
+        ..Default::default()
+    });
+}
 
 
 #[derive(Component)]
@@ -50,7 +61,8 @@ fn spawn_player(
         len: 8,
         frame_time: 1./20.
         },
-        FrameTime(0.0)
+        FrameTime(0.0),
+        Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
     ));
 }
 
@@ -173,20 +185,6 @@ fn change_player_animation(
         sprite.flip_x = false;
     }
 }
-
-fn spawn_background(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-) {
-    let texture_handle = asset_server.load("Fantasy Swamp Forest/Free/BG_1/BG_1.png");
-    commands.spawn_bundle(SpriteBundle {
-        texture: texture_handle,
-        ..Default::default()
-    });
-}
-
-
-
 
 
 
