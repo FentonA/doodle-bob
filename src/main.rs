@@ -42,29 +42,30 @@ fn spawn_background(
 #[derive(Component)]
 struct Player;
 
+
 fn spawn_player(
     mut commands: Commands,
     mut texture_atlas: ResMut<Assets<TextureAtlas>>,
     asset_server: Res<AssetServer>,
  ) {
-        let atlas = TextureAtlas::from_grid(
+    let atlas = TextureAtlas::from_grid(
         asset_server.load("dogpack_assets/dogpack_spritesheets/dog_idle_strip8.png"),
         Vec2::splat(60.),
-        8, 1, None, None);
-    commands.spawn((SpriteSheetBundle { 
+        8, 1, None, None
+    );
+    commands.spawn(SpriteSheetBundle { 
         texture_atlas: texture_atlas.add(atlas),
-        sprite: TextureAtlasSprite {index: 0, ..Default::default()},
+        sprite: TextureAtlasSprite { index: 0, ..Default::default() },
         ..Default::default()
-    }, 
-    Player,
-    SpriteAnimation{
+    })
+    .insert(Player)
+    .insert(SpriteAnimation {
         len: 8,
         frame_time: 1./20.
-        },
-        FrameTime(0.0),
-        Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
-    ));
+    })
+    .insert(FrameTime(0.0));
 }
+
 
 #[derive(Component)]
 struct FrameTime(f32);
